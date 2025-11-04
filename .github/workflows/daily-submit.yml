@@ -1,0 +1,25 @@
+name: Daily JotForm Submit
+
+on:
+  schedule:
+    - cron: '50 3 * * *'  # Daily at 3:50 AM UTC
+  workflow_dispatch:
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Puppeteer
+        run: npm install puppeteer
+
+      - name: Run Script
+        run: node submit-form.js
